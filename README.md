@@ -58,3 +58,11 @@ Additionally, to avoid ranking bias and long-tail suppression, we randomly injec
 
 - Logging LLM scores and user selection outcomes to create feedback-based optimization  
 - Integrating fairness metrics (e.g., exposure rate) to dynamically balance ranking and randomness
+
+---
+
+### 開発ガイドライン
+
+Python コードの静的解析には [Ruff](https://github.com/astral-sh/ruff) を使用しています。
+GitHub Actions のワークフロー `.github/workflows/ruff.yml` では、
+`ruff check . --output-format=github` を実行して自動的に検査を行います。
