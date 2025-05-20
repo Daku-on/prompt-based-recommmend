@@ -23,6 +23,26 @@
 - **プロンプトの変更で評価軸を自在に切り替え可能**
 
 ---
+### 使い方
+
+1. [uv](https://docs.astral.sh/uv/) をインストール
+2. 仮想環境を作成し依存関係をインストール
+3. `OPENAI_API_KEY` を設定してAPIサーバを起動
+
+```bash
+# uv のインストール例
+curl -Ls https://astral.sh/uv/install.sh | sh
+
+# 依存関係のインストール
+uv venv
+uv pip install -r requirements.txt
+
+# サーバ起動
+OPENAI_API_KEY=sk-... python -m recommender.api
+# 別ターミナルで
+curl "http://localhost:8000/recommend?user_id=1"
+```
+---
 
 ### 今後の拡張
 
