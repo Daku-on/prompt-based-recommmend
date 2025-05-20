@@ -1,0 +1,82 @@
+\documentclass[11pt]{article}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+% Title
+\title{Prompt-Based Lightweight Recommendation Engine: \\ LLM Scoring with Early Stopping and Fairness-Aware Candidate Sampling}
+\author{Anonymous Submission}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We propose a lightweight, plug-and-play recommendation architecture leveraging Large Language Models (LLMs) for candidate scoring. Unlike traditional recommendation engines that rely on predefined feature engineering or collaborative filtering, our system utilizes prompt-based LLM evaluations between user-candidate pairs. To reduce latency and cost, we introduce an early stopping mechanism that halts inference after selecting the top-k candidates exceeding a predefined score threshold. To ensure fairness and avoid long-tail exclusion, a portion of the candidate list is randomized and interleaved. This approach significantly lowers implementation complexity while maintaining quality and scalability. We detail the architecture and its potential applications across various real-world scenarios.
+\end{abstract}
+
+\section{Introduction}
+Recommendation engines are integral to modern online services. However, conventional methods often involve intensive feature engineering, model training, and constant feedback loops. With the rise of general-purpose LLMs, new paradigms become feasible---especially prompt-based scoring.
+
+This paper introduces a simple yet powerful method to perform recommendation via LLM scoring of user-candidate pairs, organized in a parallel, early-stopping architecture that improves response time and computational efficiency while incorporating fairness-aware candidate exposure.
+
+\section{Architecture Overview}
+
+Our system is structured as follows:
+
+\begin{itemize}
+    \item Input: A target user and a pool of candidate items or users
+    \item Preprocessing: Sort candidates by a business metric (e.g., payment amount)
+    \item Scoring: Prompt an LLM in parallel with each user-candidate pair
+    \item Early Stopping: Stop once $k$ candidates exceed threshold $T$
+    \item Random Mixing: Inject low-score candidates with fixed probability to avoid exposure bias
+\end{itemize}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{architecture_diagram.png} % placeholder
+    \caption{System Architecture with LLM Scoring and Early Stopping}
+\end{figure}
+
+\section{Scoring with LLMs}
+Each user-candidate pair is passed through a prompt to evaluate compatibility, for example:
+
+\begin{quote}
+``User A is a data scientist in her 30s, pragmatic and detail-oriented. Candidate B is a product manager with a design background, passionate and fast-moving. How well would they work together on a new product launch? Score 0--10 and explain.''
+\end{quote}
+
+The LLM returns a numeric score and brief justification, which are used for ranking.
+
+\section{Early Stopping Mechanism}
+Instead of evaluating all candidates, we define a threshold $T$ (e.g., score $\geq 7.5$) and target number of results $k$ (e.g., 3). Once $k$ candidates exceed $T$, remaining evaluations are skipped.
+
+This mechanism drastically reduces cost and latency, particularly with large candidate sets.
+
+\section{Fairness-aware Candidate Sampling}
+To avoid feedback loops that suppress less active or lower-paying users, we randomly insert low-ranked candidates into the evaluation queue, particularly within the top-$N$ slots. This ensures occasional exposure for underrepresented candidates and supports long-term diversity.
+
+\section{Discussion and Applications}
+This architecture can be used in:
+
+\begin{itemize}
+    \item Talent or mentor matching platforms
+    \item Recommending collaborators or advisors
+    \item Personalized content routing or introductions
+\end{itemize}
+
+Unlike heavy ML pipelines, our method works with zero-shot LLM calls, requires no training data, and adapts well to changing prompt objectives.
+
+\section{Conclusion}
+We present a simple but effective framework for LLM-powered recommendations using prompt scoring, early stopping, and randomized candidate inclusion. It offers a practical solution to building recommendation systems in LLM-native environments with minimal engineering overhead.
+
+\end{document}
