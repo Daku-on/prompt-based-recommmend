@@ -23,6 +23,19 @@
 - **プロンプトの変更で評価軸を自在に切り替え可能**
 
 ---
+### 使い方
+
+```bash
+python -m recommender.api
+# 別ターミナルで
+curl "http://localhost:8000/recommend?user_id=1"
+```
+
+### ノートブックでの実行
+
+`notebooks/recommender_demo.ipynb` では、同じ処理をJupyter Notebook形式で実装しています。
+手元の環境にJupyterがあれば、ブラウザ上で処理の流れを確認できます。
+---
 
 ### 今後の拡張
 
