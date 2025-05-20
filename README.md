@@ -25,6 +25,9 @@
 ---
 ### 使い方
 
+
+`notebooks/recommender_demo.ipynb` では、同じ処理をJupyter Notebook形式で実装しています。
+手元の環境にJupyterがあれば、ブラウザ上で処理の流れを確認できます。
 1. [uv](https://docs.astral.sh/uv/) をインストール
 2. 仮想環境を作成し依存関係をインストール
 3. `OPENAI_API_KEY` を設定してAPIサーバを起動
