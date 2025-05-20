@@ -1,0 +1,21 @@
+name: ruff
+
+on:
+  pull_request:
+    paths:
+      - '**/*.py'
+      - '.github/workflows/ruff.yml'
+  push:
+    branches: [ main ]
+    paths:
+      - '**/*.py'
+      - '.github/workflows/ruff.yml'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: chartboost/ruff-action@v1
+        with:
+          args: --output-format=github
